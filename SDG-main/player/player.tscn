@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://bjfv3trqh8c55"]
+
+[ext_resource type="Script" uid="uid://dfrba7yr1fe6i" path="res://player/scripts/player.gd" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://dffwut0yfa04o" path="res://player/states/idle.gd" id="2_rkbax"]
+[ext_resource type="Script" uid="uid://dnb2nu1wxj03f" path="res://player/states/run.gd" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://b5rlnwgjeruir" path="res://player/states/jump.gd" id="4_qjkh3"]
+[ext_resource type="Script" uid="uid://byxj7udnbsf2f" path="res://player/states/fall.gd" id="5_g6k8r"]
+[ext_resource type="Script" uid="uid://bhyxkcyi1vovb" path="res://player/states/crouch.gd" id="6_g6k8r"]
+[ext_resource type="Texture2D" uid="uid://c5q4oa548kelo" path="res://Sprites/MC_Sprites_V3.png" id="7_boad6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g6k8r"]
+radius = 21.0
+height = 118.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_boad6"]
+radius = 20.0
+height = 118.0
+
+[sub_resource type="Animation" id="Animation_rgyib"]
+resource_name = "Crouch"
+length = 0.001
+step = 0.066
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_g6k8r"]
+resource_name = "Idle"
+loop_mode = 1
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.002163515, 0.16666667, 0.2916667, 0.4583333, 0.625, 0.7916667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_hg6s5"]
+resource_name = "Jump"
+length = 2.000004226271436
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.45833334, 0.7916667, 1.125, 1.4583334, 1.7916666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_boad6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8t03j"]
+resource_name = "Run"
+length = 0.6666708532016724
+loop_mode = 1
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_boad6"]
+_data = {
+&"Crouch": SubResource("Animation_rgyib"),
+&"Idle": SubResource("Animation_g6k8r"),
+&"Jump": SubResource("Animation_hg6s5"),
+&"RESET": SubResource("Animation_boad6"),
+&"Run": SubResource("Animation_8t03j")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6k8r"]
+size = Vector2(67, 5)
+
+[node name="Player" type="CharacterBody2D" unique_id=1570350992]
+script = ExtResource("1_oul6g")
+move_speed = 200.0
+
+[node name="States" type="Node" parent="." unique_id=902293031]
+
+[node name="Idle" type="Node" parent="States" unique_id=625161638]
+unique_name_in_owner = true
+script = ExtResource("2_rkbax")
+
+[node name="Run" type="Node" parent="States" unique_id=1418304025]
+unique_name_in_owner = true
+script = ExtResource("3_g1dw6")
+
+[node name="Jump" type="Node" parent="States" unique_id=2103758921]
+unique_name_in_owner = true
+script = ExtResource("4_qjkh3")
+
+[node name="Fall" type="Node" parent="States" unique_id=1592713599]
+unique_name_in_owner = true
+script = ExtResource("5_g6k8r")
+
+[node name="Crouch" type="Node" parent="States" unique_id=2012057337]
+unique_name_in_owner = true
+script = ExtResource("6_g6k8r")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=607454010]
+position = Vector2(0, -77.00001)
+scale = Vector2(0.30520704, 0.30520704)
+texture = ExtResource("7_boad6")
+hframes = 8
+vframes = 4
+
+[node name="CollisionStand" type="CollisionShape2D" parent="." unique_id=1475996237]
+unique_name_in_owner = true
+position = Vector2(-1, -59)
+shape = SubResource("CapsuleShape2D_g6k8r")
+
+[node name="CollisionCrouch" type="CollisionShape2D" parent="." unique_id=1869039400]
+position = Vector2(-1, -59)
+shape = SubResource("CapsuleShape2D_boad6")
+disabled = true
+
+[node name="Label" type="Label" parent="." unique_id=160047926]
+offset_left = -49.0
+offset_top = -209.0
+offset_right = 54.0
+offset_bottom = -186.0
+text = "label"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=644978214]
+libraries/ = SubResource("AnimationLibrary_boad6")
+autoplay = &"Idle"
+
+[node name="OneWayPlatformShapeCast" type="ShapeCast2D" parent="." unique_id=364304182]
+visible = false
+position = Vector2(-1, -1)
+enabled = false
+shape = SubResource("RectangleShape2D_g6k8r")
+target_position = Vector2(0, 5)
+max_results = 12
+collision_mask = 2
